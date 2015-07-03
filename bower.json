@@ -1,0 +1,21 @@
+{
+  "name": "mean",
+  "version": "0.0.0",
+  "authors": [
+    "Fábio Garbini <fabio.garbini@predicta.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-resource": "~1.4.1"
+  }
+}
