@@ -1,20 +1,23 @@
 angular.module('meanContacts')
-    .controller('ContactsController', function ($scope, $resource) {
+    .controller('ContactsController', function ($scope, Contact) {
 
         $scope.contacts = [];
 
         $scope.search = '';
 
-        var Contacts = $resource('/contacts/:id');
+        $scope.message = {};
 
         var getContacts = function () {
 
-            Contacts.query(
+            Contact.query(
                 function (data) {
                     $scope.contacts = data;
                     $scope.total = data.length;
                 },
                 function (error) {
+                    $scope.message = {
+                        text: 'Could not get the contact list! Try again later.'
+                    };
                     console.log(error);
                 }
             );
@@ -25,10 +28,13 @@ angular.module('meanContacts')
 
         $scope.remove = function (contact) {
 
-            Contacts.delete(
+            Contact.delete(
                 { id: contact.id },
                 getContacts,
                 function (error) {
+                    $scope.message = {
+                        text: 'Could not remove contact! Try again later.'
+                    };
                     console.log(error);
                 }
             );

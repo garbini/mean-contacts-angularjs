@@ -15,6 +15,8 @@ angular.module('meanContacts', ['ngRoute', 'ngResource'])
 
         $routeProvider.when('/contacts', contactsRoute);
 
+        $routeProvider.when('/contact', contactRoute);
+
         $routeProvider.when('/contact/:id', contactRoute);
 
         $routeProvider.otherwise({

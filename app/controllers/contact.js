@@ -39,6 +39,41 @@ module.exports = function (app) {
 
     };
 
+    controller.save = function (req, res) {
+
+        var contact = req.body;
+
+        contact = contact.id ? update(contact) : create(contact);
+
+        res.json(contact);
+
+    };
+
+    var update = function (existingContact) {
+
+        contacts = contacts.map(function (contact) {
+
+            if (contact.id == existingContact.id) {
+                contact = existingContact;
+            }
+
+            return contact;
+
+        });
+
+        return existingContact;
+
+    };
+
+    var create = function (contact) {
+
+        contact.id = ++ID_CONTACT_INC;
+        contacts.push(contact);
+
+        return contact;
+
+    };
+
     return controller;
 
 };
@@ -61,5 +96,7 @@ for (var i = 1; i < 21; i++) {
     });
 
 }
+
+var ID_CONTACT_INC = contacts.length;
 
 ////////////////////////////////////////////////////////////////////////////////

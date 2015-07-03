@@ -1,5 +1,28 @@
-<h1>Contact</h1>
+<h1>New contact</h1>
 
-<form>
+<hr>
+
+<form ng-submit="save()">
+
+    <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" class="form-control" ng-model="contact.name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" class="form-control" ng-model="contact.email" placeholder="email@domain.com" required>
+    </div>
+
+    <br><br>
+
+    <div>
+        <button type="submit" class="btn btn-success">
+            Create new contact
+        </button>
+        <a href="#/" class="btn btn-default">
+            Return to contacts
+        </a>
+    </div>
 
 </form>
