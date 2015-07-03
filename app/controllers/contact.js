@@ -3,19 +3,23 @@ module.exports = function (app) {
     var controller = {};
 
     controller.list = function (req, res) {
-        res.json(app.data.contacts);
+        res.json(contacts);
     };
 
     controller.show = function (req, res) {
 
         var id = req.params.id;
-        var contact = app.data.contacts.filter(function (contact) {
+
+        var contact = contacts.filter(function (contact) {
             return contact.id == id;
         })[0];
 
-        contact ? res.json(contact) : res.status(404).send('Contact not found!');
+        if (contact)
+            res.json(contact);
+        else
+            res.status(404).send('Contact not found!');
 
-        res.json(app.data.contacts);
+        res.json(contacts);
 
     };
 
@@ -23,14 +27,35 @@ module.exports = function (app) {
 
         var id = req.params.id;
 
-        var contacts = app.data.contacts.filter(function (contact) {
+        contacts = contacts.filter(function (contact) {
             return contact.id != id;
         });
 
-        res.send(contacts).end();
+        res.status(204).end();
 
     };
 
     return controller;
 
 };
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Contacts ////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+var faker = require('faker');
+
+var contacts = [];
+
+for (var i = 1; i < 51; i++) {
+
+    contacts.push({
+        id: i,
+        name: faker.name.findName(),
+        email: faker.internet.email().toLowerCase()
+    });
+
+}
+
+////////////////////////////////////////////////////////////////////////////////

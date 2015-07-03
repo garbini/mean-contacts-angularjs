@@ -1,5 +1,6 @@
-angular.module('contacts').controller('ContactController', function ($scope, $routeParams) {
+angular.module('meanContacts')
+    .controller('ContactController', function ($scope, $routeParams) {
 
-    console.log($routeParams);
+        console.log($routeParams);
 
 });

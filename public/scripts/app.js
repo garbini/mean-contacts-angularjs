@@ -1,4 +1,4 @@
-angular.module('contacts', ['ngRoute', 'ngResource'])
+angular.module('meanContacts', ['ngRoute', 'ngResource'])
     .config(function ($routeProvider) {
 
         $routeProvider.when('/contacts', {

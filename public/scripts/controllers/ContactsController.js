@@ -1,4 +1,4 @@
-angular.module('contacts')
+angular.module('meanContacts')
     .controller('ContactsController', function ($scope, $resource) {
 
         $scope.contacts = [];
