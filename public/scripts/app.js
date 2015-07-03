@@ -1,18 +1,24 @@
 angular.module('meanContacts', ['ngRoute', 'ngResource'])
     .config(function ($routeProvider) {
 
-        $routeProvider.when('/contacts', {
+        var contactsRoute = {
             templateUrl: 'partials/contacts.html',
             controller: 'ContactsController'
-        });
+        };
 
-        $routeProvider.when('/contact/:id', {
+        var contactRoute = {
             templateUrl: 'partials/contact.html',
             controller: 'ContactController'
-        });
+        };
+
+        $routeProvider.when('/', contactsRoute);
+
+        $routeProvider.when('/contacts', contactsRoute);
+
+        $routeProvider.when('/contact/:id', contactRoute);
 
         $routeProvider.otherwise({
-            retirectTo: '/contacts'
+            redirectTo: '/contacts'
         });
 
 });
