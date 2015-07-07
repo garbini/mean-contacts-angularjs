@@ -2,6 +2,10 @@
 
 <hr>
 
+<div class="alert alert-{{message.class}}" role="alert" ng-show="message.text">
+    <p>{{message.text}}</p>
+</div>
+
 <form ng-submit="save()">
 
     <div class="form-group">
@@ -12,6 +16,16 @@
     <div class="form-group">
         <label for="email">E-mail</label>
         <input type="email" id="email" name="email" class="form-control" ng-model="contact.email" placeholder="email@domain.com" required>
+    </div>
+
+    <div class="form-group">
+        <label for="emergency">Emergency Contact</label>
+        <select
+            id="emergency"
+            class="form-control"
+            ng-model="contact.emergency"
+            ng-options="contact._id as contact.name for contact in contacts">
+        </select>
     </div>
 
     <br><br>

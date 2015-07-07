@@ -13,6 +13,10 @@ module.exports = function () {
             index: {
                 unique: true
             }
+        },
+        emergency: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Contact'
         }
     });
 

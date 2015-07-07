@@ -10,6 +10,7 @@ angular.module('meanContacts')
                 },
                 function (error) {
                     $scope.message = {
+                        class: 'danger',
                         text: 'Could not remove contact! Try again later.'
                     };
                     console.log(error);
@@ -17,9 +18,7 @@ angular.module('meanContacts')
             );
 
         } else {
-
             $scope.contact = new Contact();
-
         }
 
         $scope.save = function () {
@@ -28,20 +27,24 @@ angular.module('meanContacts')
                 .then(function () {
 
                     $scope.message = {
+                        class: 'success',
                         text: 'Contact successfully created!'
                     };
 
                     $scope.contact = new Contact();
 
-                    window.location = '#/contacts';
-
                 })
                 .catch(function (error) {
                     $scope.message = {
+                        class: 'danger',
                         text: 'Could not create a new contact!'
                     };
                 });
 
         };
+
+        Contact.query(function (contacts) {
+            $scope.contacts = contacts;
+        });
 
 });

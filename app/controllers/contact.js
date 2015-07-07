@@ -12,9 +12,11 @@ module.exports = function (app) {
 
         Contact
             .find()
+            .populate('emergency')
             .exec()
             .then(function (contacts) {
                 res.json(contacts);
+                console.log(contacts);
             },
             function (error) {
                 console.log(error);
@@ -60,6 +62,8 @@ module.exports = function (app) {
     controller.save = function (req, res) {
 
         var _id = req.body._id;
+
+        req.body.emergency = req.body.emergency || null;
 
         if (_id) {
 

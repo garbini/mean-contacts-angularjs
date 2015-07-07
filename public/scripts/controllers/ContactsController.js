@@ -16,6 +16,7 @@ angular.module('meanContacts')
                 },
                 function (error) {
                     $scope.message = {
+                        class: 'danger',
                         text: 'Could not get the contact list! Try again later.'
                     };
                     console.log(error);
@@ -33,6 +34,7 @@ angular.module('meanContacts')
                 getContacts,
                 function (error) {
                     $scope.message = {
+                        class: 'danger',
                         text: 'Could not remove contact! Try again later.'
                     };
                     console.log(error);
