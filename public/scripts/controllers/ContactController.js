@@ -26,10 +26,15 @@ angular.module('meanContacts')
 
             $scope.contact.$save()
                 .then(function () {
+
                     $scope.message = {
                         text: 'Contact successfully created!'
                     };
+
                     $scope.contact = new Contact();
+
+                    window.location = '#/contacts';
+
                 })
                 .catch(function (error) {
                     $scope.message = {

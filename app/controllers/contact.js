@@ -6,71 +6,87 @@ module.exports = function (app) {
 
     var controller = {};
 
+    var Contact = app.models.contact;
+
     controller.list = function (req, res) {
-        res.json(contacts);
+
+        Contact
+            .find()
+            .exec()
+            .then(function (contacts) {
+                res.json(contacts);
+            },
+            function (error) {
+                console.log(error);
+                res.status(500).json(error);
+            });
+
     };
 
     controller.show = function (req, res) {
 
-        var id = req.params.id;
+        var _id = req.params.id;
 
-        var contact = contacts.filter(function (contact) {
-            return contact.id == id;
-        })[0];
-
-        if (contact)
-            res.json(contact);
-        else
-            res.status(404).send('Contact not found!');
-
-        res.json(contacts);
+        Contact
+            .findById(_id)
+            .exec()
+            .then(function (contact) {
+                if (!contact) throw new Error('Contact not found!');
+                res.json(contact);
+            },
+            function (error) {
+                console.log(error);
+                res.status(404).json(error);
+            });
 
     };
 
     controller.delete = function (req, res) {
 
-        var id = req.params.id;
+        var _id = req.params.id;
 
-        contacts = contacts.filter(function (contact) {
-            return contact.id != id;
-        });
-
-        res.status(204).end();
+        Contact
+            .remove({'_id': _id})
+            .exec()
+            .then(function () {
+                res.end();
+            },
+            function (error) {
+                return console.error(error);
+            });
 
     };
 
     controller.save = function (req, res) {
 
-        var contact = req.body;
+        var _id = req.body._id;
 
-        contact = contact.id ? update(contact) : create(contact);
+        if (_id) {
 
-        res.json(contact);
+            Contact
+                .findByIdAndUpdate(_id, req.body)
+                .exec()
+                .then(function (contact) {
+                    res.json(contact);
+                },
+                function (error) {
+                    console.error(error);
+                    res.status(500).json(error);
+                });
 
-    };
+        } else {
 
-    var update = function (existingContact) {
+            Contact
+                .create(req.body)
+                .then(function (contact) {
+                    res.status(201).json(contact);
+                },
+                function (error) {
+                    console.error(error);
+                    res.status(500).json(error);
+                });
 
-        contacts = contacts.map(function (contact) {
-
-            if (contact.id == existingContact.id) {
-                contact = existingContact;
-            }
-
-            return contact;
-
-        });
-
-        return existingContact;
-
-    };
-
-    var create = function (contact) {
-
-        contact.id = ++ID_CONTACT_INC;
-        contacts.push(contact);
-
-        return contact;
+        }
 
     };
 
@@ -78,25 +94,5 @@ module.exports = function (app) {
 
 };
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Contacts Data ///////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-var faker = require('faker');
-
-var contacts = [];
-
-for (var i = 1; i < 21; i++) {
-
-    contacts.push({
-        id: i,
-        name: faker.name.findName(),
-        email: faker.internet.email().toLowerCase()
-    });
-
-}
-
-var ID_CONTACT_INC = contacts.length;
 
 ////////////////////////////////////////////////////////////////////////////////
