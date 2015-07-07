@@ -29,7 +29,7 @@ angular.module('meanContacts')
         $scope.remove = function (contact) {
 
             Contact.delete(
-                { id: contact.id },
+                { id: contact._id },
                 getContacts,
                 function (error) {
                     $scope.message = {
