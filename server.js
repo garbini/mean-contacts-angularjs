@@ -1,5 +1,7 @@
 var http = require('http');
 var app = require('./config/express')();
+
+require('./config/passport')();
 require('./config/database.js')('mongodb://localhost/mean_contacts');
 
 http.createServer(app).listen(app.get('port'), function () {
